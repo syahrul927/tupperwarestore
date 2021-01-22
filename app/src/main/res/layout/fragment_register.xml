@@ -7,7 +7,7 @@
     <data>
         <variable
             name="register"
-            type="com.example.tupperwarestore.model.RegisterModel" />
+            type="com.example.tupperwarestore.viewModel.RegisterViewModel" />
     </data>
     <FrameLayout
         android:layout_width="match_parent"
@@ -59,7 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_marginTop="20dp"
                     android:hint="Nama Lengkap"
-                    android:text="@={register.nama}"
+                    android:text="@={register.model.nama}"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_marginTop="20dp"
                     android:hint="E-mail"
-                    android:text="@={register.email}"
+                    android:text="@={register.model.email}"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -85,22 +85,22 @@
                     android:layout_marginTop="20dp"
                     android:hint="Password"
                     android:inputType="textPassword"
-                    android:text="@={register.password}"
+                    android:text="@={register.model.password}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/emailfield" />
-                <EditText
-                    android:id="@+id/passwordConfirmfield"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
-                    android:layout_marginTop="20dp"
-                    android:hint="Password"
-                    android:text="@={register.password}"
-                    android:inputType="textPassword"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/passwordfield" />
+<!--                <EditText-->
+<!--                    android:id="@+id/passwordConfirmfield"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginHorizontal="30dp"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:hint="Password"-->
+<!--                    android:text="@={register.password}"-->
+<!--                    android:inputType="textPassword"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/passwordfield" />-->
 
 
                 <Button
@@ -115,7 +115,7 @@
 
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/passwordConfirmfield" />
+                    app:layout_constraintTop_toBottomOf="@+id/passwordfield" />
 
                 <ImageView
                     android:id="@+id/backButton"

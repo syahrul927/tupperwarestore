@@ -4,7 +4,7 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 
-public class RegisterModel extends BaseObservable {
+public class RegisterModel {
     private String email = "";
     private String nama = "";
     private String password = "";
@@ -18,7 +18,6 @@ public class RegisterModel extends BaseObservable {
         this.password = password;
     }
 
-    @Bindable
     public String getEmail() {
         return email;
     }
@@ -27,7 +26,6 @@ public class RegisterModel extends BaseObservable {
         this.email = email;
     }
 
-    @Bindable
     public String getNama() {
         return nama;
     }
@@ -36,12 +34,20 @@ public class RegisterModel extends BaseObservable {
         this.nama = nama;
     }
 
-    @Bindable
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "RegisterModel{" +
+                "email='" + email + '\'' +
+                ", nama='" + nama + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

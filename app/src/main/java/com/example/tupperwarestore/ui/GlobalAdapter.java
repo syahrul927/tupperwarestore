@@ -52,7 +52,7 @@ public abstract class GlobalAdapter<T, D> extends RecyclerView.Adapter<RecyclerV
         return mArrayList.size();
     }
 
-    public void addItems(ArrayList<T> arrayList) {
+    public void addItems(List<T> arrayList) {
         mArrayList = arrayList;
         this.notifyDataSetChanged();
     }

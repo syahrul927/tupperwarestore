@@ -5,7 +5,7 @@ import androidx.databinding.Bindable;
 
 import java.util.Observable;
 
-public class LoginModel extends BaseObservable {
+public class LoginModel {
     private String email;
     private String password;
 
@@ -17,7 +17,6 @@ public class LoginModel extends BaseObservable {
         this.password = password;
     }
 
-    @Bindable
     public String getEmail() {
         return email;
     }
@@ -25,7 +24,7 @@ public class LoginModel extends BaseObservable {
     public void setEmail(String email) {
         this.email = email;
     }
-    @Bindable
+
     public String getPassword() {
         return password;
     }

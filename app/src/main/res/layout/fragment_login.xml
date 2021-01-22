@@ -7,7 +7,7 @@
     <data>
         <variable
             name="login"
-            type="com.example.tupperwarestore.model.LoginModel" />
+            type="com.example.tupperwarestore.viewModel.LoginViewModel" />
     </data>
     <FrameLayout
         android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_marginTop="20dp"
                     android:hint="E-mail"
-                    android:text="@={login.email}"
+                    android:text="@={login.model.email}"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +67,7 @@
 
                 <EditText
                     android:id="@+id/passwordfield"
-                    android:text="@={login.password}"
+                    android:text="@={login.model.password}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"

@@ -5,12 +5,12 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/backgroundGrey"
+        android:background="@color/white"
         tools:context=".ui.home.HomeFragment">
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:background="@color/backgroundGrey"
+            android:background="@color/white"
             android:layout_marginStart="10dp"
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             tools:listitem="@layout/category_item"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:background="@color/backgroundGrey"
+            android:background="@color/white"
             android:layout_marginStart="10dp"
             android:id="@+id/recycleItemProduct"
             android:layout_width="match_parent"

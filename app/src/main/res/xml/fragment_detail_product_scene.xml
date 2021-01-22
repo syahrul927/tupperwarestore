@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetEnd="@id/product_end"
+        app:constraintSetStart="@id/product_start" >
+        <OnSwipe app:touchAnchorSide="top"
+            app:dragDirection="dragUp"/>
+    </Transition>
+</MotionScene>

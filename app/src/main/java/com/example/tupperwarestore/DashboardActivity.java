@@ -1,10 +1,15 @@
 package com.example.tupperwarestore;
 
 import android.os.Bundle;
+import android.view.View;
 
+import com.example.tupperwarestore.ui.home.HomeViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -12,14 +17,27 @@ import androidx.navigation.ui.NavigationUI;
 
 public class DashboardActivity extends AppCompatActivity {
 
+    HomeViewModel homeViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         getSupportActionBar().hide();
+
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
+        homeViewModel.getIsShowProduct().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean){
+                    navView.setVisibility(View.GONE);
+                }else{
+                    navView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_order, R.id.navigation_notifications)
                 .build();
@@ -27,5 +45,11 @@ public class DashboardActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+    
 
 }

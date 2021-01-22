@@ -5,12 +5,15 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.tupperwarestore.DashboardActivity;
 import com.example.tupperwarestore.viewModel.LoginViewModel;
@@ -48,20 +51,32 @@ public class LoginFragment extends Fragment {
             NavDirections action = LoginFragmentDirections.actionLoginFragmentPop();
             NavHostFragment.findNavController(this).navigate(action);
         });
+        mViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        binding.setLogin(mViewModel);
         binding.btnLogin.setOnClickListener(v->{
             //do hit api
+           mViewModel.doLogin();
+//
+        });
 
-            Intent i = new Intent(requireActivity(), DashboardActivity.class);
-            startActivity(i);
-            //using require activity for null safe yak :)OCee
-            requireActivity().finish();
+        mViewModel.getSuccess().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean){
+                    mViewModel.insertDetailUser(getContext());
+                    Intent i = new Intent(requireActivity(), DashboardActivity.class);
+                    startActivity(i);
+                    requireActivity().finish();
+                }
+            }
+        });
+
+        mViewModel.getErrMessage().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Toast.makeText(getContext(),"Email atau Password Salah", Toast.LENGTH_LONG).show();
+            }
         });
         return binding.getRoot();
     }
-//
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        mViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-//    }
 }

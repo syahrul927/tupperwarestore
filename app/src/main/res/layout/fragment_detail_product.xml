@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Tadi nya mau pakai motion layout cuma gk ada waktu buat research :(   -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/detailProductFragment"
+        tools:context=".ui.DetailProductFragment">
+        <ImageView
+            android:id="@+id/headerimage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/contentlayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@mipmap/product" />
+
+    <ImageButton
+        android:id="@+id/previousBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/ic_previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </ImageButton>
+
+
+
+    <LinearLayout
+        android:id="@+id/layouttitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_product_background"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/headerimage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/texttitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="32dp"
+                android:text="Caffe To Go"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="32sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layoutPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/layouttitle"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/textPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Rp. 150.000"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:textSize="18dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:minHeight="200dp"
+        android:id="@+id/contentlayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingVertical="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/layoutButon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="32dp"
+                android:text="Botol minum bisa untuk air panas/dingin Memiliki kebanyakan kelebihan : \n 1. Pas dalam cup holder \n 2. Silicon cup yang mudah dibuka tutup \n 3. Pas digunakan dengan tupperware sedotan \n 4. Dilengkapi sleeve nyaman digenggam"
+                app:lineHeight="25dp" />
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="32dp"
+            android:orientation="vertical">
+            <TextView
+                android:text="Colors"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/variantList"
+                android:layout_height="120dp"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/variant_item">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layoutButon"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingVertical="10dp"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnKeranjang"
+            android:layout_width="wrap_content"
+            android:paddingHorizontal="30dp"
+            android:textSize="13sp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_box"
+            android:text="+ Keranjang" />
+    </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
