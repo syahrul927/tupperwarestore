@@ -14,10 +14,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.tupperwarestore.R;
+import com.example.tupperwarestore.TupperwareUtils;
 import com.example.tupperwarestore.databinding.CategoryItemBinding;
 import com.example.tupperwarestore.databinding.ProductItemBinding;
 import com.example.tupperwarestore.model.CategoryModel;
@@ -46,7 +48,6 @@ public class HomeFragment extends Fragment {
         recyclerViewCategory = (RecyclerView) root.findViewById(R.id.recyclerview);
         recyclerViewProduct = (RecyclerView) root.findViewById(R.id.recycleItemProduct);
 //        sourceProduct = ProductModel.init();
-
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         homeViewModel.getListProduct();
         homeViewModel.getCategory().observe(getViewLifecycleOwner(), new Observer<List<CategoryModel>>() {
@@ -126,7 +127,7 @@ public class HomeFragment extends Fragment {
                         .centerCrop()
                         .placeholder(R.drawable.ic_unavailable_pict_background)
                         .into(dataBinding.imageItem);
-                dataBinding.priceItem.setText("Rp. "+String.valueOf(model.getPriceProduct()));
+                dataBinding.priceItem.setText(TupperwareUtils.moneyFormatter(Double.valueOf(model.getPriceProduct())));
 
             }
 

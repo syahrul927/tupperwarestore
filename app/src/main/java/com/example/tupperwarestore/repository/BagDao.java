@@ -20,13 +20,13 @@ public interface BagDao {
     Completable insert(Bag bag);
 
     @Delete
-    void delete(Bag bag);
+    Completable delete(Bag bag);
 
     @Update
-    void update(Bag bag);
+    Completable update(Bag bag);
 
     @Query("DELETE FROM bag_table")
-    void deleteAllBags();
+    Completable deleteAllBags();
 
     @Query("SELECT * FROM bag_table where id = :id")
     Maybe<Bag> findById(String id);

@@ -32,7 +32,7 @@
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/detailProductFragment"
-        android:name="com.example.tupperwarestore.ui.DetailProductFragment"
+        android:name="com.example.tupperwarestore.ui.product.DetailProductFragment"
         android:label="DetailProductFragment" >
         <action
             android:id="@+id/action_detailProductFragment_pop"

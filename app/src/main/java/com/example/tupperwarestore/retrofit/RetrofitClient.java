@@ -45,6 +45,9 @@ public class RetrofitClient {
                             .header("Authorization", "Bearer "+  App.token.getValue())
                             .method(original.method(), original.body());
                     Response response =  chain.proceed(request.build());
+                    if(response.code()!=200 && response.code()==401){
+
+                    }
                     return response;
                 }
 
