@@ -1,9 +1,13 @@
 package com.example.tupperwarestore.retrofit;
 
+import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.example.tupperwarestore.App;
+import com.example.tupperwarestore.MainActivity;
 import com.example.tupperwarestore.repository.User;
 import com.example.tupperwarestore.repository.UserDao;
 import com.example.tupperwarestore.repository.UserDatabase;
@@ -45,8 +49,15 @@ public class RetrofitClient {
                             .header("Authorization", "Bearer "+  App.token.getValue())
                             .method(original.method(), original.body());
                     Response response =  chain.proceed(request.build());
-                    if(response.code()!=200 && response.code()==401){
-
+                    if(response.code()==401){
+                        App.removeToken();
+//                        System.exit(0);
+                        Context app =  App.getContext();
+                        Intent i = new Intent(app, MainActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        app.startActivity(i);
+                        ((Activity) app).finish();
                     }
                     return response;
                 }

@@ -58,15 +58,22 @@ public class LoginFragment extends Fragment {
            mViewModel.doLogin();
 //
         });
+        mViewModel.isProgress.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean){
+                    binding.lavThumbUp.setVisibility(View.VISIBLE);
+                }else {
+                    binding.lavThumbUp.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
 
         mViewModel.getSuccess().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
                     mViewModel.insertDetailUser(getContext());
-                    Intent i = new Intent(requireActivity(), DashboardActivity.class);
-                    startActivity(i);
-                    requireActivity().finish();
                 }
             }
         });

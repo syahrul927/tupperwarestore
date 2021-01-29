@@ -39,6 +39,7 @@ public class LoginViewModel extends ViewModel {
     private MutableLiveData<Boolean> _isSuccess = new MutableLiveData<>();
     private User user = null;
     private MutableLiveData<String> _errMessage = new MutableLiveData<>();
+    public MutableLiveData<Boolean> isProgress = new MutableLiveData<>();
 
     private UserDao dao = null;
     private static final String TAG = "LoginViewModel";
@@ -86,6 +87,7 @@ public class LoginViewModel extends ViewModel {
 
     public void doLogin(){
         if(model.getValue() != null){
+            isProgress.postValue(true);
             Retrofit retrofit = RetrofitClient.getInstance();
             authApi = retrofit.create(IAuthApi.class);
             authApi.login(model.getValue())
@@ -107,12 +109,13 @@ public class LoginViewModel extends ViewModel {
                             }else{
                                 _isSuccess.postValue(false);
                             }
-
+                            isProgress.postValue(false);
                         }
 
                         @Override
                         public void onError(@NonNull Throwable e) {
                             _errMessage.postValue(e.getMessage().toString());
+                            isProgress.postValue(false);
                         }
                     });
 //

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,9 +22,11 @@ import com.bumptech.glide.Glide;
 import com.example.tupperwarestore.R;
 import com.example.tupperwarestore.TupperwareUtils;
 import com.example.tupperwarestore.databinding.CategoryItemBinding;
+import com.example.tupperwarestore.databinding.FragmentHomeBinding;
 import com.example.tupperwarestore.databinding.ProductItemBinding;
 import com.example.tupperwarestore.model.CategoryModel;
 import com.example.tupperwarestore.model.ProductModel;
+import com.example.tupperwarestore.repository.User;
 import com.example.tupperwarestore.ui.GlobalAdapter;
 
 import java.util.ArrayList;
@@ -38,18 +41,32 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerViewCategory;
     private RecyclerView recyclerViewProduct;
     private static final String TAG = "HomeFragment";
+    private static final String HEY = "Hey ";
 
     Fragment fragment = this;
+    private FragmentHomeBinding binding;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+                new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
         recyclerViewCategory = (RecyclerView) root.findViewById(R.id.recyclerview);
         recyclerViewProduct = (RecyclerView) root.findViewById(R.id.recycleItemProduct);
 //        sourceProduct = ProductModel.init();
-        homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         homeViewModel.getListProduct();
+        homeViewModel.getUser();
+        homeViewModel.getUserInfo().observe(getViewLifecycleOwner(), new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if(user!=null){
+
+                    binding.textUsername.setText(HEY+user.getName().split(" ")[0]);
+                }
+            }
+        });
         homeViewModel.getCategory().observe(getViewLifecycleOwner(), new Observer<List<CategoryModel>>() {
             @Override
             public void onChanged(List<CategoryModel> categoryModels) {
@@ -65,7 +82,7 @@ public class HomeFragment extends Fragment {
                 notifyDataProduct(root, root.getContext());
             }
         });
-
+    ///Suaraa gua gk kedengeran?
         return root;
     }
 

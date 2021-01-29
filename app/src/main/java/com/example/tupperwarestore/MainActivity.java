@@ -30,16 +30,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Activity activity = this;
         binding = ActivityWelcomeAuthBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
         App.token.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                Intent i = new Intent(activity, DashboardActivity.class);
-                startActivity(i);
-                activity.finish();
+              if(s!=null){
+                  Intent i = new Intent(MainActivity.this, DashboardActivity.class);
+                  i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                  i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                  startActivity(i);
+                  finish();
+              }
             }
         });
     }

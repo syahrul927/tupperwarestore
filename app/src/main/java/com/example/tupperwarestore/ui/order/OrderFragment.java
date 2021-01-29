@@ -15,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -33,13 +35,14 @@ public class OrderFragment extends Fragment {
     private OrderViewModel orderViewModel;
 
     RecyclerView recyclerViewBag;
+    Fragment fragment = this;
 
     //make binding ajaa lah biar gampang, lumayan sambil belajar MVVM
     FragmentOrderBinding binding;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         orderViewModel =
-                new ViewModelProvider(this).get(OrderViewModel.class);
+                new ViewModelProvider(requireActivity()).get(OrderViewModel.class);
         orderViewModel.setContext(getContext());
         binding = FragmentOrderBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -73,8 +76,10 @@ public class OrderFragment extends Fragment {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
-                    Snackbar mySnackbar = Snackbar.make(getView(), "Berhasil Melakukan Checkout", Snackbar.LENGTH_LONG);
-                    mySnackbar.show();
+//                    Snackbar mySnackbar = Snackbar.make(getView(), "Berhasil Melakukan Checkout", Snackbar.LENGTH_LONG);
+//                    mySnackbar.show();
+                    NavDirections action = OrderFragmentDirections.actionNavigationOrderToSuccessCheckout();
+                    NavHostFragment.findNavController(fragment).navigate(action);
                 }
 
             }
@@ -96,7 +101,6 @@ public class OrderFragment extends Fragment {
                     }
                     binding.btnCheckout.setClickable(true);
                     binding.keranjangExist.setVisibility(View.VISIBLE);
-                    binding.emptyBackground.setVisibility(View.INVISIBLE);
                     binding.totalPrice.setText(TupperwareUtils.moneyFormatter(total));
                     recyclerViewBag.setAdapter(new GlobalAdapter<Bag, BagItemBinding>(getContext(), bags) {
                         @Override
@@ -155,7 +159,19 @@ public class OrderFragment extends Fragment {
                     binding.totalPrice.setText(TupperwareUtils.moneyFormatter(0d));
                     binding.btnCheckout.setClickable(false);
                     binding.keranjangExist.setVisibility(View.INVISIBLE);
-                    binding.emptyBackground.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        orderViewModel.getIsLoading().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    binding.loading.setVisibility(View.VISIBLE);
+                    binding.emptyBackground.setVisibility(View.INVISIBLE);
+                }else{
+                    int vi = orderViewModel.getListBag().getValue().size() > 0 ? View.INVISIBLE :View.VISIBLE;
+                    binding.emptyBackground.setVisibility(vi);
+                    binding.loading.setVisibility(View.INVISIBLE);
                 }
             }
         });

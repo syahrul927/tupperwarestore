@@ -1,14 +1,19 @@
 package com.example.tupperwarestore.ui.home;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.tupperwarestore.App;
 import com.example.tupperwarestore.model.CategoryModel;
 import com.example.tupperwarestore.model.ProductModel;
 import com.example.tupperwarestore.model.resp.ProductResp;
 import com.example.tupperwarestore.model.resp.ResponseApi;
+import com.example.tupperwarestore.repository.User;
+import com.example.tupperwarestore.repository.UserDao;
+import com.example.tupperwarestore.repository.UserDatabase;
 import com.example.tupperwarestore.retrofit.IProductAPi;
 import com.example.tupperwarestore.retrofit.RetrofitClient;
 
@@ -26,17 +31,11 @@ import retrofit2.Retrofit;
 import static android.content.ContentValues.TAG;
 
 public class HomeViewModel extends ViewModel {
+    private MutableLiveData<User> userInfo = new MutableLiveData<User>(null);
     private MutableLiveData<List<CategoryModel>> category = new MutableLiveData<>(new ArrayList<>());
     private MutableLiveData<Boolean> isShowProduct = new MutableLiveData<Boolean>(false);
     private MutableLiveData<List<ProductModel>> products = new MutableLiveData<>(new ArrayList<>());
 
-    public MutableLiveData<Boolean> getIsShowProduct() {
-        return isShowProduct;
-    }
-
-    public void setIsShowProduct(Boolean isShowProduct) {
-        this.isShowProduct.setValue(isShowProduct);
-    }
 
     private MutableLiveData<ProductModel> product = new MutableLiveData<>(new ProductModel());
 
@@ -48,6 +47,30 @@ public class HomeViewModel extends ViewModel {
     public HomeViewModel() {
     }
 
+    public void getUser() {
+        UserDao dao = App.database.dao();
+        dao.getAllUsers().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<List<User>>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                compositeDisposable.add(d);
+            }
+
+            @Override
+            public void onSuccess(@NonNull List<User> users) {
+                if(users.size()>0){
+                    User user = users.get(0);
+                    userInfo.postValue(user);
+
+                }
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.e("INIT", "onError: ",e );
+            }
+        });
+
+    }
     public void getListProduct() {
         Retrofit retrofit = RetrofitClient.getInstance();
         productAPi = retrofit.create(IProductAPi.class);
@@ -107,4 +130,22 @@ public class HomeViewModel extends ViewModel {
     public MutableLiveData<List<CategoryModel>> getCategory() {
         return category;
     }
+
+    public MutableLiveData<User> getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(User userInfo) {
+        this.userInfo.postValue(userInfo);
+    }
+
+    public MutableLiveData<Boolean> getIsShowProduct() {
+        return isShowProduct;
+    }
+
+    public void setIsShowProduct(Boolean isShowProduct) {
+        this.isShowProduct.setValue(isShowProduct);
+    }
+
+
 }

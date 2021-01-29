@@ -16,6 +16,7 @@
         tools:context=".ui.LoginFragment">
 
         <ScrollView
+            android:id="@+id/scrolls"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
@@ -26,6 +27,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:viewBindingIgnore="true">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lav_thumbUp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnLogin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:lottie_autoPlay="true"
+                    android:visibility="invisible"
+                    app:lottie_rawRes="@raw/loading_animation"
+                    app:lottie_loop="true"
+                    app:lottie_speed="1.25" />
 
                 <ImageView
                     android:id="@+id/imageView2"

@@ -34,6 +34,9 @@ public class OrderViewModel extends ViewModel {
 
     private static final String TAG = "OrderViewModel";
     private MutableLiveData<List<Bag>> listBag = new MutableLiveData<>(new ArrayList<>());
+    private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
+
+
     private MutableLiveData<Boolean> isSuccessCheckout = new MutableLiveData<>(false);
     ICartApi cartApi;
     private MutableLiveData<String> messageCheckout = new MutableLiveData<>();
@@ -181,6 +184,7 @@ public class OrderViewModel extends ViewModel {
                                 .subscribe(new SingleObserver<ResponseApi<List<Bag>>>() {
                                     @Override
                                     public void onSubscribe(@NonNull Disposable d) {
+                                        isLoading.postValue(true);
                                         compositeDisposable.add(d);
                                     }
 
@@ -188,11 +192,13 @@ public class OrderViewModel extends ViewModel {
                                     public void onSuccess(@NonNull ResponseApi<List<Bag>> listResponseApi) {
                                         Log.d(TAG, "onSuccess: Success  when get list cart from server");
                                         setListBag(listResponseApi.getData());
+                                        isLoading.postValue(false);
                                     }
 
                                     @Override
                                     public void onError(@NonNull Throwable e) {
                                         Log.e(TAG, "onError: Error when get list cart from server", e);
+                                        isLoading.postValue(false);
                                     }
                                 });
                     }
@@ -286,8 +292,8 @@ public class OrderViewModel extends ViewModel {
         return isSuccessCheckout;
     }
 
-    public void setIsSuccessCheckout(MutableLiveData<Boolean> isSuccessCheckout) {
-        this.isSuccessCheckout = isSuccessCheckout;
+    public void setIsSuccessCheckout(Boolean isSuccessCheckout) {
+        this.isSuccessCheckout.setValue(isSuccessCheckout);
     }
 
     public MutableLiveData<String> getMessageCheckout() {
@@ -309,5 +315,13 @@ public class OrderViewModel extends ViewModel {
 
     public MutableLiveData<List<Bag>> getListBag() {
         return listBag;
+    }
+
+    public MutableLiveData<Boolean> getIsLoading() {
+        return isLoading;
+    }
+
+    public void setIsLoading(MutableLiveData<Boolean> isLoading) {
+        this.isLoading = isLoading;
     }
 }

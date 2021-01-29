@@ -1,5 +1,6 @@
 package com.example.tupperwarestore;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -44,12 +45,25 @@ public class DashboardActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+        App.token.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                if(s==null){
+                    Intent i = new Intent(DashboardActivity.this, MainActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                    finish();
+                }
+            }
+        });
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
     }
+
     
 
 }

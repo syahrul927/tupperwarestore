@@ -6,15 +6,15 @@ import androidx.databinding.Bindable;
 
 public class RegisterModel {
     private String email = "";
-    private String nama = "";
+    private String name = "";
     private String password = "";
 
     public RegisterModel() {
     }
 
-    public RegisterModel(String email, String nama, String password) {
+    public RegisterModel(String email, String name, String password) {
         this.email = email;
-        this.nama = nama;
+        this.name = name;
         this.password = password;
     }
 
@@ -26,12 +26,12 @@ public class RegisterModel {
         this.email = email;
     }
 
-    public String getNama() {
-        return nama;
+    public String getName() {
+        return name;
     }
 
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -46,7 +46,7 @@ public class RegisterModel {
     public String toString() {
         return "RegisterModel{" +
                 "email='" + email + '\'' +
-                ", nama='" + nama + '\'' +
+                ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

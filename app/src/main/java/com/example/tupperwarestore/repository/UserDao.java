@@ -27,7 +27,7 @@ public interface UserDao {
     void update(User user);
 
     @Query("DELETE FROM user_table")
-    void deleteAllUsers();
+    Completable deleteAllUsers();
 
     @Query("SELECT * FROM user_table")
     Single<List<User>> getAllUsers();
